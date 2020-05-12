@@ -10,3 +10,4 @@ Allows you to import the 3box react component into Discourse as a theme-componen
 - Run the CLI from the root directory of this project
     - https://theme-creator.discourse.org/ is your base URL
     - The API key is generated inside of the theme-creator website; be sure to select "Individual User" because the "Everyone" key doesn't work and the CLI will quit silently.
+- If everything is working correctly, the CLI says watching and the browser console will log messages.
