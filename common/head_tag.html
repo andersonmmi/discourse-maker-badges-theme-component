@@ -10,10 +10,8 @@
       </div>
       <div class='display-flex'>
         First
-        <!-- <div class='buttons'> -->
-          <!-- {{d-button label="wallet_connect.add_button" action="connectWallet" }} -->
-            <div id="connectWallet" onClick={()=>console.log("You clicked me!")}>Connect Wallet</div>
-        <!-- </div> -->
+        <div id="connectWallet" onClick={ () => { console.log("You clicked me!"); } }>Connect Wallet</div>
+       
         , then
         <div class='buttons'>
           {{d-button label="wallet_link.add_button" onClick="clickButton"}}
