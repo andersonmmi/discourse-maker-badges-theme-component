@@ -1,5 +1,26 @@
 <!--  -->
 <script type="text/javascript">console.log("Code is running!");</script>
 <script type='text/x-handlebars' data-template-name='/connectors/user-preferences-account/discourse-maker-badges-theme-component'>
-<div>Hello World</div>
+    <div class='control-label'>
+        Claim MakerDAO Badges
+      </div>
+      <div class='display-flex'>
+        First
+        <div class='buttons'>
+          {{d-button label="wallet_connect.add_button" action="connectWallet"}}
+        </div>
+        , then
+        <div class='buttons'>
+          {{d-button label="wallet_link.add_button" action="clickButton"}}
+        </div>
+        .
+      </div>
+      <div class='text-field'>
+        {{
+          text-field 
+          label="wallet_address.text_field" 
+          placeholder="Wallet address go here!" 
+          value="No version of plugin.test_address works"
+        }}
+      </div>
 </script>
