@@ -15,11 +15,11 @@
       <div class='display-flex'>
         First
         <div class='buttons'>
-          {{d-button label="wallet_connect.add_button" action="connectWallet" }}
+          {{d-button label="wallet_connect.add_button" action=`${connectWallet}` }}
         </div>
         , then
         <div class='buttons'>
-          {{d-button label="wallet_link.add_button" action="clickButton"}}
+          {{d-button label="wallet_link.add_button" onClick="clickButton"}}
         </div>
         .
       </div>
