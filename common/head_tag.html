@@ -1,33 +1,24 @@
-<!--  -->
-<!-- <script type="text/javascript">console.log("Code is running!");</script>
-<script type="text/discourse-plugin" version="0.8">
-    console.log("This Code is also Running!!!");
-</script> -->
-
-<script type='text/x-handlebars' data-template-name='/connectors/user-preferences-account/discourse-maker-badges-theme-component'>
+<script type="text/x-handlebars" data-template-name="/connectors/user-preferences-account">
     <div class='control-label'>
         Claim MakerDAO Badges
-      </div>
-      <div class='display-flex'>
-        First
-        <!-- <div class='buttons'> -->
-          <!-- {{d-button label="wallet_connect.add_button" action="connectWallet" }} -->
-            <div id="connectWallet" >Connect Wallet</div>
-        <!-- </div> -->
-        , then
-        <div class='buttons'>
-          {{d-button label="wallet_link.add_button" onClick="clickButton"}}
-        </div>
-        .
-      </div>
-      <div class='text-field'>
-        {{
-          text-field 
-          label="wallet_address.text_field" 
-          placeholder="Wallet address go here!" 
-          value="No version of plugin.test_address works"
-        }}
-      </div>
+    </div>
+    {{mount-widget widget="maker-badges-loader-widget"}}
 </script>
-<script src="../scripts.js" type='text/javascript'>
+
+<script type="text/discourse-plugin" version="0.8">
+console.log("Discourse:",Discourse);
+
+
+// const h require("virtual-dom").h;
+
+api.createWidget('maker-badges-loader-widget', {
+    tagName: "button.maker-badges",
+    html() {
+        return "Import Maker Badges";
+    },
+    click() {
+        console.log("Maker badge loader button got clicked");
+    }
+});
 </script>
+
