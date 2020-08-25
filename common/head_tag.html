@@ -9,7 +9,7 @@
     {{mount-widget widget="maker-badges-loader-widget"}}
 </script>
 
-<script type="text/discourse-plugin" version="0.8">
+<script Xtype="text/discourse-plugin" version="0.8">
 console.log("Discourse:", Discourse);
 
 // const h require("virtual-dom").h;
@@ -29,8 +29,9 @@ api.createWidget('maker-badges-loader-widget', {
         // window.ethereum.enable();  // Deprecated
 
         try {
-            const accounts = await ethereum.send('eth_requestAccounts');
-            console.log("Ethereum Accounts", accounts);
+            ethereum.send('eth_requestAccounts').then((accounts) => {
+                console.log("Ethereum Accounts", accounts);
+            });
         } catch (error) {
             console.log("User denied Ethereum account access");
         }
