@@ -27,22 +27,21 @@ api.createWidget('maker-badges-loader-widget', {
 
         try {
             // NOTE: window.ethereum.send and window.ethereum.sendAsync are being deprecated in favor of window.ethereum.request
-            //       The new method is not widely in use or well documented yet so it has not yet been implemented here.
+            //       The new method is not current widely used or well documented, so it hasn't been implemented here yet
             // Request wallet access and account list
             window.ethereum.send('eth_requestAccounts').then((accounts) => {
                 console.log("Ethereum Accounts", accounts);
-                        // :alembic: Message params should be username & ethAddress
+                // Message params for signing request should be username & ethAddress
                 window.ethereum.sendAsync(  {
                         method: 'personal_sign',
                         params: [
                             `${username}`, window.ethereum.selectedAddress
                         ],
                         from: window.ethereum.selectedAddress
-
                     },
                     (error, response) => {
                         if (error) {
-                            // Handle error. Likely the user rejected the login
+                            // Handle error. Likely the user rejected the signature request
                             console.error("Error with signing message:", error);
                         } else {
                             // Prepare message for delivery to lambda function
