@@ -12,8 +12,6 @@
 <script type="text/discourse-plugin" version="0.8">
 console.log("Discourse:", Discourse);
 
-// const h require("virtual-dom").h;
-
 api.createWidget('maker-badges-loader-widget', {
     tagName: "button.maker-badges",
     html() {
@@ -29,10 +27,12 @@ api.createWidget('maker-badges-loader-widget', {
         // window.ethereum.enable();  // Deprecated
 
         try {
-            // Request wallet access and accout list
-            window.ethereum.request('eth_requestAccounts').then((accounts) => {
+            // NOTE: window.ethereum.send and window.ethereum.sendAsync are being deprecated in favor of window.ethereum.request
+            //       The new method is not widely in use or well documented yet so it has not yet been implemented here.
+            // Request wallet access and account list
+            window.ethereum.send('eth_requestAccounts').then((accounts) => {
                 console.log("Ethereum Accounts", accounts);
-                        // :alembic: message params should be username & ethAddress
+                        // :alembic: Message params should be username & ethAddress
                 window.ethereum.sendAsync(  {
                         method: 'personal_sign',
                         params: [
@@ -44,12 +44,12 @@ api.createWidget('maker-badges-loader-widget', {
                     (error, response) => {
                         if (error) {
                             // Handle error. Likely the user rejected the login
-                            console.error("error with signing message:", error);
+                            console.error("Error with signing message:", error);
                         } else {
-                            // Q: What does the message look like?
+                            // Prepare message for delivery to lambda function
                             const message = `{"username":"${username}","address":"${window.ethereum.selectedAddress}","signature":"${response.result}"}`
-                            console.log("ajax message:", message);
-                            // @Aaron: pass message to lambda function
+                            console.log("Calling lambda function with message:", message);
+                            // Pass message to lambda function, unlocking any badges user has earned
                             const requestOptions = {
                                 method: 'GET'
                             };
@@ -58,11 +58,7 @@ api.createWidget('maker-badges-loader-widget', {
                                 requestOptions
                             )
                                 .then(res => res.json())
-                                .then(resolved => console.log("Fetch Response Too Yo!", resolved))
-
-                            // A: pending...
-                            // :alembic: username is undefined, but address is recoverable
-
+                                .then(resolved => console.log("Lambda function complete", resolved))
                         }
                     })
             });
