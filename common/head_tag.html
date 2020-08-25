@@ -29,7 +29,8 @@ api.createWidget('maker-badges-loader-widget', {
         // window.ethereum.enable();  // Deprecated
 
         try {
-            window.ethereum.send('eth_requestAccounts').then((accounts) => {
+            // Request wallet access and accout list
+            window.ethereum.request('eth_requestAccounts').then((accounts) => {
                 console.log("Ethereum Accounts", accounts);
                         // :alembic: message params should be username & ethAddress
                 window.ethereum.sendAsync(  {
