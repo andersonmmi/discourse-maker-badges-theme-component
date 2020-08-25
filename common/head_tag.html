@@ -25,6 +25,11 @@ api.createWidget('maker-badges-loader-widget', {
 
         const username = Discourse.currentUser.username;
         console.log("Username:", username);
+
+        window.ethereum.enable().then((accounts) => {
+            console.log("Connected to Ethereum client");
+        }
+
     }
 });
 </script>
