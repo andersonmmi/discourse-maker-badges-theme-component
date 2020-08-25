@@ -1,31 +1,69 @@
-<!--  -->
-<!-- <script type="text/javascript">console.log("Code is running!");</script>
+  
 <script type="text/discourse-plugin" version="0.8">
-    console.log("This Code is also Running!!!");
-</script> -->
+    console.log("Maker Badge Theme Component Running");
+</script>
 
-<script type='text/x-handlebars' data-template-name='/connectors/user-preferences-account/discourse-maker-badges-theme-component'>
+<script type="text/x-handlebars" data-template-name="/connectors/user-preferences-account/maker-badges">
     <div class='control-label'>
         Claim MakerDAO Badges
-      </div>
-      <div class='display-flex'>
-        First
-        <button id="connectWallet" onClick={ (e) => { console.log("You clicked me!", e ); } }>Connect Wallet</button>
-       
-        , then
-        <div class='buttons'>
-          {{d-button label="wallet_link.add_button" onClick="clickButton"}}
-        </div>
-        .
-      </div>
-      <div class='text-field'>
-        {{
-          text-field 
-          label="wallet_address.text_field" 
-          placeholder="Wallet address go here!" 
-          value="No version of plugin.test_address works"
-        }}
-      </div>
+    </div>
+    {{mount-widget widget="maker-badges-loader-widget"}}
 </script>
-<script src="../scripts.js" type='text/javascript'>
+
+<script type="text/discourse-plugin" version="0.8">
+console.log("Maker Badge Widget Mounted");
+console.log("Discourse:", Discourse);
+
+api.createWidget('maker-badges-loader-widget', {
+    tagName: "button.maker-badges",
+    html() {
+        return "Import Maker Badges";
+    },
+    click(e) {
+        e.preventDefault();
+        console.log("Maker badge loader button got clicked");
+
+        const username = Discourse.currentUser.username;
+        console.log("Username", username);
+
+        try {
+            // NOTE: window.ethereum.send and window.ethereum.sendAsync are being deprecated in favor of window.ethereum.request
+            //       The new method is not current widely used or well documented, so it hasn't been implemented here yet
+            // Request wallet access and account list
+            window.ethereum.send('eth_requestAccounts').then((accounts) => {
+                console.log("Ethereum Accounts", accounts);
+                // Message params for signing request should be username & ethAddress
+                window.ethereum.sendAsync(  {
+                        method: 'personal_sign',
+                        params: [
+                            `${username}`, window.ethereum.selectedAddress
+                        ],
+                        from: window.ethereum.selectedAddress
+                    },
+                    (error, response) => {
+                        if (error) {
+                            // Handle error. Likely the user rejected the signature request
+                            console.error("Error with signing message:", error);
+                        } else {
+                            // Prepare message for delivery to lambda function
+                            const message = `{"username":"${username}","address":"${window.ethereum.selectedAddress}","signature":"${response.result}"}`
+                            console.log("Calling lambda function with message:", message);
+                            // Pass message to lambda function, unlocking any badges user has earned
+                            const requestOptions = {
+                                method: 'GET'
+                            };
+                            fetch(
+                                `http://localhost:3000/discourse/${message}`,
+                                requestOptions
+                            )
+                                .then(res => res.json())
+                                .then(resolved => console.log("Lambda function complete", resolved))
+                        }
+                    })
+            });
+        } catch (error) {
+            console.log("User denied Ethereum account access");
+        }
+    }
+});
 </script>
