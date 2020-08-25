@@ -24,9 +24,16 @@ api.createWidget('maker-badges-loader-widget', {
         console.log("Maker badge loader button got clicked");
 
         const username = Discourse.currentUser.username;
-        console.log("Username:", username);
+        console.log("Username", username);
 
-        window.ethereum.enable();
+        // window.ethereum.enable();  // Deprecated
+
+        try {
+            const accounts = await ethereum.send('eth_requestAccounts');
+            console.log("Ethereum Accounts", accounts);
+        } catch (error) {
+            console.log("User denied Ethereum account access");
+        }
 
         //.then((accounts) => {
         //    console.log("Connected to Ethereum client");
