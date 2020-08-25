@@ -10,12 +10,15 @@
 </script>
 
 <script type="text/discourse-plugin" version="0.8">
-console.log("Discourse:",Discourse);
+<!--console.log("Discourse:",Discourse);-->
 
 // const h require("virtual-dom").h;
 
 api.createWidget('maker-badges-loader-widget', {
     tagName: "button.maker-badges",
+    type() {
+        return "button";
+    },
     html() {
         return "Import Maker Badges";
     },
