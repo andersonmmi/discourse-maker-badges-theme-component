@@ -10,6 +10,7 @@
 </script>
 
 <script type="text/discourse-plugin" version="0.8">
+console.log("Maker Badge Widget Mounted");
 console.log("Discourse:", Discourse);
 
 api.createWidget('maker-badges-loader-widget', {
@@ -23,8 +24,6 @@ api.createWidget('maker-badges-loader-widget', {
 
         const username = Discourse.currentUser.username;
         console.log("Username", username);
-
-        // window.ethereum.enable();  // Deprecated
 
         try {
             // NOTE: window.ethereum.send and window.ethereum.sendAsync are being deprecated in favor of window.ethereum.request
