@@ -49,7 +49,7 @@ api.createWidget('maker-badges-loader-widget', {
                                 method: 'GET'
                             };
                             fetch(
-                                `https://3nsc1491ed.execute-api.us-east-1.amazonaws.com/dev/discourse/${message}`,
+                                `http://localhost:3000/dev/discourse/${message}`,
                                 requestOptions
                             )
                                 .then(res => res.json())
