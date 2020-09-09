@@ -11,8 +11,6 @@
 </script>
 
 <script type="text/discourse-plugin" version="0.8">
-console.log("Maker Badge Widget Mounted");
-console.log("Discourse:", Discourse);
 
 api.createWidget('maker-badges-loader-widget', {
     tagName: "button.maker-badges",
@@ -21,10 +19,6 @@ api.createWidget('maker-badges-loader-widget', {
     },
     click(e) {
         e.preventDefault();
-        console.log("Maker badge loader button got clicked");
-
-        const username = Discourse.currentUser.username;
-        console.log("Username", username);
 
         try {
             // NOTE: window.ethereum.send and window.ethereum.sendAsync are being deprecated in favor of window.ethereum.request
