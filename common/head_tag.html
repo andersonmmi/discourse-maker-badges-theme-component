@@ -20,6 +20,8 @@ api.createWidget('maker-badges-loader-widget', {
     click(e) {
         e.preventDefault();
 
+        const username = Discourse.currentUser.username;
+
         try {
             // NOTE: window.ethereum.send and window.ethereum.sendAsync are being deprecated in favor of window.ethereum.request
             //       The new method is not current widely used or well documented, so it hasn't been implemented here yet
