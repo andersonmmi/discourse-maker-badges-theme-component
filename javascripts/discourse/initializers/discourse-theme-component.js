@@ -57,7 +57,7 @@ export default {
                     requestOptions
                     )
                     .then(res => res.json())
-                    .then(resolved => document.getElementById('badge-error').innerText = resolved)
+                    .then(resolved => document.getElementById('badge-error').innerText = resolved.errors)
                   }
                 })
               });
