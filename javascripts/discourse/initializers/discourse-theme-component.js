@@ -57,8 +57,9 @@ export default {
                     requestOptions
                     )
                     .then(resolved =>{ 
-                      console.log("resolved",resolved)
-                      document.getElementById('badge-error').innerText = resolved.body}
+                      console.log("resolved",resolved.body)
+                      
+                      document.getElementById('badge-error').innerText = JSON.stringify(resolved.body)}
                     )
                   }
                 })
