@@ -26,7 +26,8 @@ export default {
               window.ethereum.sendAsync(  {
                 method: 'personal_sign',
                 params: [
-                  `${username}`, window.ethereum.selectedAddress
+                  // `${username}`, window.ethereum.selectedAddress
+                  'username', window.ethereum.selectedAddress
                 ],
                 from: window.ethereum.selectedAddress
               },
@@ -35,6 +36,7 @@ export default {
                   
                   // Handle error. Likely the user rejected the signature request
                   console.error("Error with signing message:", error);
+                  document.getElementById('badge-error').innerText = error;
                   
                 } else {
                   
