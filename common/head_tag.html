@@ -38,19 +38,27 @@
                         },
                         (error, response) => {
                             if (error) {
+                                
                                 // Handle error. Likely the user rejected the signature request
                                 console.error("Error with signing message:", error);
+                            
                             } else {
+                                
                                 // Prepare message for delivery to lambda function
-                                const message = `{"username":"${username}","address":"${window.ethereum.selectedAddress}","signature":"${response.result}"}`
+                                const message = {
+                                    username: username,
+                                    address: window.ethereum.selectedAddress,
+                                    signature: response.result
+                                }
                                 console.log("Calling lambda function with message:", message);
+                                
                                 // Pass message to lambda function, unlocking any badges user has earned
                                 const requestOptions = {
                                     method: 'GET',
                                     params: JSON.stringify(message)
                                 };
                                 fetch(
-                                    `http://075d145e319a.ngrok.io/dev/discourse`,
+                                    `http://075d145e319a.ngrok.io/dev/discourse?username=${message.username}&address=${message.address}&signature=${message.signature}`,
                                     requestOptions
                                 )
                                     .then(res => res.json())
