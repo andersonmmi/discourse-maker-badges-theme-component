@@ -1,5 +1,5 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
-import config from "./config";
+// import { config }  from "./config";
 
 const matchProductionHost = () => {return window.location.host === "forum.makerdao.com"};
 
@@ -7,6 +7,7 @@ export default {
   name: "maker-badges",
   initialize(){
     withPluginApi("0.8.7", api => {
+      const config = require('config.js')
       api.createWidget('maker-badges-loader-widget', {
         tagName: "button.maker-badges",
         html() {
