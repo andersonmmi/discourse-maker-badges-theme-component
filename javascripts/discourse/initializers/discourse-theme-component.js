@@ -57,7 +57,7 @@ export default {
                     requestOptions
                     )
                     .then(res => res.json())
-                    .then(resolved => console.log("Lambda function complete", resolved))
+                    .then(resolved => document.getElementById('badge-error').innerText = resolved)
                   }
                 })
               });
