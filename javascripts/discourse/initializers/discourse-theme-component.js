@@ -51,7 +51,7 @@ export default {
                     method: 'GET',
                   };
                   fetch(
-                    matchProductionHost() ? config.production.lambdaUrl(message) : config.development.lambdaUrl(message),
+                    matchProductionHost() ? ThemeConfig.production.lambdaUrl(message) : ThemeConfig.development.lambdaUrl(message),
                     requestOptions
                     )
                     .then(res => res.json())
