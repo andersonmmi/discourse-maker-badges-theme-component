@@ -1,6 +1,8 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
 import config from "./config";
 
+const matchProductionHost = () => {return window.location.host === "forum.makerdao.com"};
+
 export default {
   name: "maker-badges",
   initialize(){
@@ -50,7 +52,7 @@ export default {
                     method: 'GET',
                   };
                   fetch(
-                    config.development.lambdaUrl(message),
+                    matchProductionHost() ? config.production.lambdaUrl(message) : config.development.lambdaUrl(message),
                     requestOptions
                     )
                     .then(res => res.json())
