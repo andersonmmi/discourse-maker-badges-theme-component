@@ -2,8 +2,6 @@ import { withPluginApi } from "discourse/lib/plugin-api";
 
 const matchProductionHost = () => {return window.location.host === "forum.makerdao.com"};
 
-const 
-
 export default {
   name: "maker-badges",
   initialize(){
