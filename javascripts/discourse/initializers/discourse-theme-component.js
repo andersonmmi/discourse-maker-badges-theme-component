@@ -2,6 +2,8 @@ import { withPluginApi } from "discourse/lib/plugin-api";
 
 const matchProductionHost = () => {return window.location.host === "forum.makerdao.com"};
 
+const 
+
 export default {
   name: "maker-badges",
   initialize(){
@@ -56,7 +58,6 @@ export default {
                     matchProductionHost() ? ThemeConfig.production.lambdaUrl(message) : ThemeConfig.development.lambdaUrl(message),
                     requestOptions
                     )
-                    .then(res => console.log(res))
                     .then(resolved => document.getElementById('badge-error').innerText = resolved.errors)
                   }
                 })
