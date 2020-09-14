@@ -56,7 +56,7 @@ export default {
                     matchProductionHost() ? ThemeConfig.production.lambdaUrl(message) : ThemeConfig.development.lambdaUrl(message),
                     requestOptions
                     )
-                    .then(resolved => document.getElementById('badge-error').innerText = resolved.data.errors)
+                    .then(resolved => document.getElementById('badge-error').innerText = resolved.body.errors)
                   }
                 })
               });
