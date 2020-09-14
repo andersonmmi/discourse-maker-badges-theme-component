@@ -26,8 +26,8 @@ export default {
               window.ethereum.sendAsync(  {
                 method: 'personal_sign',
                 params: [
-                  // `${username}`, window.ethereum.selectedAddress
-                  'username', window.ethereum.selectedAddress
+                  `${username}`, window.ethereum.selectedAddress
+                  // 'username', window.ethereum.selectedAddress
                 ],
                 from: window.ethereum.selectedAddress
               },
@@ -56,7 +56,7 @@ export default {
                     matchProductionHost() ? ThemeConfig.production.lambdaUrl(message) : ThemeConfig.development.lambdaUrl(message),
                     requestOptions
                     )
-                    .then(res => res.json())
+                    .then(res => console.log(res))
                     .then(resolved => document.getElementById('badge-error').innerText = resolved.errors)
                   }
                 })
