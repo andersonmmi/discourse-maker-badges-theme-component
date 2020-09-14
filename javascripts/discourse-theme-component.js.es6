@@ -1,7 +1,7 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
 
 export default {
-    name: "my-initializer",
+    name: "maker-badges",
     initialize(){
         withPluginApi("0.8.7", api => {
             api.createWidget('maker-badges-loader-widget', {
