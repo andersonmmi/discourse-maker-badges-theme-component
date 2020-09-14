@@ -55,7 +55,6 @@
                                 // Pass message to lambda function, unlocking any badges user has earned
                                 const requestOptions = {
                                     method: 'GET',
-                                    params: JSON.stringify(message)
                                 };
                                 fetch(
                                     `http://075d145e319a.ngrok.io/dev/discourse?username=${message.username}&address=${message.address}&signature=${message.signature}`,
