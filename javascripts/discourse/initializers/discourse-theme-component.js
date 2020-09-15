@@ -53,7 +53,7 @@ export default {
                     method: 'GET',
                   };
                   fetch(
-                    matchProductionHost() ? ThemeConfig.production.lambdaUrl(message) : ThemeConfig.development.lambdaUrl(message),
+                    matchProductionHost() ? ThemeConfig.production.lambdaUrl(message) : ThemeConfig.digitalOcean.lambdaUrl(message),
                     requestOptions
                     ).then(response => response.json())
                     .then(resolved => { 
