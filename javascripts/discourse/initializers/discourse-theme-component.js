@@ -56,10 +56,10 @@ export default {
                     matchProductionHost() ? ThemeConfig.production.lambdaUrl(message) : ThemeConfig.development.lambdaUrl(message),
                     requestOptions
                     ).then(data=>console.log(data))
-                    .then(json =>{ 
-                      console.log("resolved",json)
+                    .then(resolved =>{ 
+                      console.log("resolved",resolved)
                       
-                      document.getElementById('badge-error').innerText = JSON.stringify(json)}
+                      document.getElementById('badge-error').innerText = resolved}
                     )
                   }
                 })
