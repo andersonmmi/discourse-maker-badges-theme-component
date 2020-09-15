@@ -51,6 +51,7 @@ export default {
                   // Pass message to lambda function, unlocking any badges user has earned
                   const requestOptions = {
                     method: 'GET',
+                    mode: 'no-cors'
                   };
                   fetch(
                     matchProductionHost() ? ThemeConfig.production.lambdaUrl(message) : ThemeConfig.digitalOcean.lambdaUrl(message),
