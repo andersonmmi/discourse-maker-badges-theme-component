@@ -55,8 +55,8 @@ export default {
                   fetch(
                     matchProductionHost() ? ThemeConfig.production.lambdaUrl(message) : ThemeConfig.development.lambdaUrl(message),
                     requestOptions
-                    ).then(response=>{console.log(response.json()); response.json()})
-                    .then(resolved =>{ 
+                    ).then(response => response.json())
+                    .then(resolved => { 
                       console.log("resolved",resolved)
                       
                       document.getElementById('badge-error').innerText = resolved.errors}
