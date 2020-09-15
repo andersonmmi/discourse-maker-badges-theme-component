@@ -55,7 +55,7 @@ export default {
                   fetch(
                     matchProductionHost() ? ThemeConfig.production.lambdaUrl(message) : ThemeConfig.development.lambdaUrl(message),
                     requestOptions
-                    )
+                    ).then(data=>console.log(data))
                     .then(json =>{ 
                       console.log("resolved",json)
                       
