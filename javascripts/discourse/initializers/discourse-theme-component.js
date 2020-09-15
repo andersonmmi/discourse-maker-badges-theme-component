@@ -23,23 +23,22 @@ export default {
             window.ethereum.send('eth_requestAccounts').then((accounts) => {
               console.log("Ethereum Accounts", accounts);
               // Message params for signing request should be username & ethAddress
-              window.ethereum.sendAsync(  {
+              const sendAsyncConfig = {
                 method: 'personal_sign',
                 params: [
                   `${username}`, window.ethereum.selectedAddress
                   // 'username', window.ethereum.selectedAddress
                 ],
                 from: window.ethereum.selectedAddress
-              },
-              (error, response) => {
+              };
+              const sendAsyncCallback = ((error, response) => {
                 if (error) {
 
                   // Handle error. Likely the user rejected the signature request
                   console.error("Error with signing message:", error);
                   document.getElementById('badge-error').innerText = error;
-                  return
+                  return;
                 }
-
 
                 // Prepare message for delivery to lambda function
                 const message = {
@@ -61,9 +60,12 @@ export default {
                     console.log("resolved",resolved);
 
                     document.getElementById('badge-error').innerText = resolved.errors; })
-                  .catch(error => { console.log(error); })
+                  .catch(error => { console.log(error);
+                });
+              };
 
-              });
+              window.ethereum.sendAsync(sendAsyncConfig, sendAsyncCallback);
+
             } catch (error) {
               console.log("User denied Ethereum account access");
             }
