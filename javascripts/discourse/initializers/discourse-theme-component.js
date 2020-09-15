@@ -5,7 +5,7 @@ const matchProductionHost = () => {return window.location.host === "forum.makerd
 export default {
   name: "maker-badges",
   initialize(){
-    withPluginApi("0.8.7", api => {
+    withPluginApi("0.8.7", (api => {
       api.createWidget('maker-badges-loader-widget', {
         tagName: "button.maker-badges",
         html() {
@@ -69,11 +69,11 @@ export default {
 
                 window.ethereum.sendAsync(sendAsyncConfig, sendAsyncCallback);
               });
-            } catch (error) {
-              console.log("User denied Ethereum account access");
-            }
+          } catch (error) {
+            console.log("User denied Ethereum account access");
           }
-        });
+        }
       });
-    }
+    });
   }
+}
