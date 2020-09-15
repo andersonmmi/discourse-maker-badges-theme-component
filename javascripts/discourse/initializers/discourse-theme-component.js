@@ -13,9 +13,9 @@ export default {
         },
         click(e) {
           e.preventDefault();
-          
+
           const username = Discourse.currentUser.username;
-          
+
           try {
             // NOTE: window.ethereum.send and window.ethereum.sendAsync are being deprecated in favor of window.ethereum.request
             //       The new method is not current widely used or well documented, so it hasn't been implemented here yet
@@ -33,14 +33,14 @@ export default {
               },
               (error, response) => {
                 if (error) {
-                  
+
                   // Handle error. Likely the user rejected the signature request
                   console.error("Error with signing message:", error);
                   document.getElementById('badge-error').innerText = error;
                   return
                 }
-                
-                
+
+
                 // Prepare message for delivery to lambda function
                 const message = {
                   username: username,
@@ -48,26 +48,21 @@ export default {
                   signature: response.result
                 }
                 console.log("Calling lambda function with message:", message);
-                
+
                 // Pass message to lambda function, unlocking any badges user has earned
                 const requestOptions = {
                   method: 'GET',
                   mode: 'no-cors',
                 };
-                fetch(
-                  matchProductionHost() ?
-                  ThemeConfig.production.lambdaUrl(message) :
-                  ThemeConfig.digitalOcean.lambdaUrl(message),
-                  requestOptions
-                  )
-                  .then(response => {response.json()})
-                  .then(resolved => { 
-                    console.log("resolved",resolved)
-                    
-                    document.getElementById('badge-error').innerText = resolved.errors
-                  })
-                  .catch(error => { console.log(error) })
-                })
+
+                fetch(matchProductionHost() ? ThemeConfig.production.lambdaUrl(message) : ThemeConfig.digitalOcean.lambdaUrl(message), requestOptions)
+                  .then(response => { response.json(); })
+                  .then(resolved => {
+                    console.log("resolved",resolved);
+
+                    document.getElementById('badge-error').innerText = resolved.errors; })
+                  .catch(error => { console.log(error); })
+
               });
             } catch (error) {
               console.log("User denied Ethereum account access");
