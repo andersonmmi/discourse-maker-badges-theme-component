@@ -60,7 +60,7 @@ export default {
                       console.log("resolved",resolved)
                       
                       document.getElementById('badge-error').innerText = resolved.errors}
-                    )
+                    ).catch(error => { console.log(error) })
                   }
                 })
               });
