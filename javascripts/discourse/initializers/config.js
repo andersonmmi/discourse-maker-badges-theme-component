@@ -3,7 +3,7 @@ const ThemeConfig = {
         lambdaUrl: (message)=>{return `http://075d145e319a.ngrok.io/dev/discourse?username=${message.username}&address=${message.address}&signature=${message.signature}`;}
     },
     digitalOcean: {
-        lambdaUrl: (message)=>{return `http://206.81.10.153:3001/dev/discourse?username=${message.username}&address=${message.address}&signature=${message.signature}`;}
+        lambdaUrl: (message)=>{return `http://f93e5e261584.ngrok.io/dev/discourse?username=${message.username}&address=${message.address}&signature=${message.signature}`;}
     },
     production: {
         lambdaUrl: (message)=>{return `https://3nsc1491ed.execute-api.us-east-1.amazonaws.com/dev/discourse?username=${message.username}&address=${message.address}&signature=${message.signature}`;}
