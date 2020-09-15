@@ -44,7 +44,7 @@ const click = (e) => {
       };
 
       fetch(matchProductionHost() ? ThemeConfig.production.lambdaUrl(message) : ThemeConfig.digitalOcean.lambdaUrl(message), requestOptions)
-        .then(response => { response.json(); })
+        .then(response => response.json())
         .then(resolved => {
           console.log("resolved",resolved);
 
