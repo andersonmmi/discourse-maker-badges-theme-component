@@ -61,7 +61,7 @@ const click = (e) => {
 export default {
   name: "maker-badges",
   initialize() {
-    withPluginApi("0.8.7", (api => {
+    withPluginApi("0.8.7", api => {
       api.createWidget(
         'maker-badges-loader-widget',
         {
