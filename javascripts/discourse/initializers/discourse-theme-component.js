@@ -43,6 +43,7 @@ const click = (e) => {
         mode: 'no-cors',
       };
 
+      // TODO: This code doesn't execute here, move it.
       fetch(matchProductionHost() ? ThemeConfig.production.lambdaUrl(message) : ThemeConfig.digitalOcean.lambdaUrl(message), requestOptions)
         .then(response => response.json())
         .then(resolved => {
@@ -54,6 +55,7 @@ const click = (e) => {
 
     });
 
+    // TODO: This code doesn't "send" anything, it signs the message and returns the signed message.
     window.ethereum.sendAsync(sendAsyncConfig, sendAsyncCallback);
   });
 }
