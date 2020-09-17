@@ -13,10 +13,10 @@ const click = (e) => {
     console.log("Ethereum Accounts", accounts);
   }); 
 
-  alert("booooong");
+  // This username is the same as the "message" that gets signed
+  const username = Discourse.currentUser.username;
 
-  // // This username is the same as the "message" that gets signed
-  // const username = Discourse.currentUser.username;
+  alert("booooong " + username);
 
   // // This parameter tells "window.ethereum.sendAsync" what to do: "personally sign with these params, from me"
   // const sendAsyncConfig = {
