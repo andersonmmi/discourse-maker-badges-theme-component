@@ -8,7 +8,7 @@ const html = () => { return "Import Maker Badges"; };
 const click = (e) => {
   e.preventDefault();
 
-  // TODO: This method unlocks and returns the active address in metamask
+  // This method unlocks and returns the active address in metamask
   window.ethereum.send('eth_requestAccounts').then((accounts) => {
     console.log("Ethereum Accounts", accounts);
   }); 
@@ -26,7 +26,7 @@ const click = (e) => {
     from: window.ethereum.selectedAddress,
   };
 
-  // TODO: This callback should should give us back the signature if it's successful 
+  // This callback should should give us back the signature if it's successful 
   const sendAsyncCallback = ((error, response) => {
     if (error) {
       // Handle error. Likely the user rejected the signature request
@@ -35,7 +35,7 @@ const click = (e) => {
       return;
     }
 
-      // Send Lambda the user's discourse username, ethereum address, and signature
+    // Send Lambda the user's discourse username, ethereum address, and signature
     data = {
       username: username,
       address: window.ethereum.selectedAddress,
@@ -44,7 +44,7 @@ const click = (e) => {
     console.log("This is the data to send to lambda:", data);
   });
 
-  // TODO: This method signs the message and sets data accordingly.
+  // This method signs the message and sets data accordingly.
   window.ethereum.sendAsync(sendAsyncConfig, sendAsyncCallback);
 
   // Pass data to lambda function, unlocking any badges user has earned
@@ -54,7 +54,7 @@ const click = (e) => {
   };
 
   // TODO: This method should send the data to the lambda service
-  // BUG: This block is responsible for crashing the lambda server
+  // BUG: This block results in: ngrok 200 ok, success: false, errors: [undefined]
   fetch(matchProductionHost() ? ThemeConfig.production.lambdaUrl(data) : ThemeConfig.digitalOcean.lambdaUrl(data), requestOptions)
   .then(response => response.json())
   .then(resolved => {
