@@ -54,6 +54,7 @@ const click = (e) => {
   };
 
   // TODO: This method should send the data to the lambda service
+  // BUG: This block is responsible for crashing the lambda server
   fetch(matchProductionHost() ? ThemeConfig.production.lambdaUrl(data) : ThemeConfig.digitalOcean.lambdaUrl(data), requestOptions)
   .then(response => response.json())
   .then(resolved => {
@@ -61,9 +62,6 @@ const click = (e) => {
 
     document.getElementById('badge-error').innerText = resolved.errors; })
   .catch(error => { console.log(error); });
-
-  alert("booooong ");
-
 }
 
 export default {
