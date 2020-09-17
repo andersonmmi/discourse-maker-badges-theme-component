@@ -1,7 +1,5 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
 
-let data = {};
-
 const matchProductionHost = () => {return window.location.host === "forum.makerdao.com"};
 
 const html = () => { return "Import Maker Badges"; };
@@ -36,7 +34,7 @@ const click = (e) => {
     }
 
     // Send Lambda the user's discourse username, ethereum address, and signature
-    data = {
+    const data = {
       username: username,
       address: window.ethereum.selectedAddress,
       signature: response.result,
@@ -55,8 +53,8 @@ const click = (e) => {
     // .then(async response => {
     //   console.log(response.json());
     //   return await response.json();} )
-    .then(json => {
-      console.log("json", json.json());
+    .then(async json => {
+      console.log("json", await json.json());
       // document.getElementById('badge-error').innerText = json.errors;
     })
     .catch(error => { console.log('fetch error:', error); });
