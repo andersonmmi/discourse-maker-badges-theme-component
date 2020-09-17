@@ -56,8 +56,8 @@ const click = (e) => {
     //   console.log(response.json());
     //   return await response.json();} )
     .then(json => {
-      console.log(json);
-      document.getElementById('badge-error').innerText = json.errors;
+      console.log("json", json.json());
+      // document.getElementById('badge-error').innerText = json.errors;
     })
     .catch(error => { console.log('fetch error:', error); });
   });
