@@ -8,12 +8,12 @@ const html = () => { return "Import Maker Badges"; };
 const click = (e) => {
   e.preventDefault();
 
-  alert("booooong")
+  // TODO: This method unlocks and returns the active address in metamask
+  window.ethereum.send('eth_requestAccounts').then((accounts) => {
+    console.log("Ethereum Accounts", accounts);
+  }); 
 
-  // // TODO: This method unlocks and returns the active address in metamask
-  // window.ethereum.send('eth_requestAccounts').then((accounts) => {
-  //   console.log("Ethereum Accounts", accounts);
-  // }); 
+  alert("booooong");
 
   // // This username is the same as the "message" that gets signed
   // const username = Discourse.currentUser.username;
