@@ -47,6 +47,9 @@ const click = (e) => {
     const requestOptions = {
       method: 'GET',
       mode: 'no-cors',
+      headers: {
+        'Content-Type': 'application/json'
+      }
     };
 
     // TODO: This method should send the data to the lambda service
@@ -54,14 +57,17 @@ const click = (e) => {
     fetch(matchProductionHost() ? ThemeConfig.production.lambdaUrl(data) : ThemeConfig.digitalOcean.lambdaUrl(data), requestOptions)
     .then(response => response.json())
     .then(resolved => {
-      console.log("resolved",resolved);
-
       document.getElementById('badge-error').innerText = resolved.errors; })
-    .catch(error => { console.log(error); });
+    .catch(error => { console.log('fetch error:', error); });
   });
 
   // This method signs the message and sets data accordingly.
   window.ethereum.sendAsync(sendAsyncConfig, sendAsyncCallback);
+
+
+ 
+
+
 }
 
 export default {
