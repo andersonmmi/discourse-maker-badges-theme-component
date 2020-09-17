@@ -42,26 +42,26 @@ const click = (e) => {
       signature: response.result,
     }
     console.log("This is the data to send to lambda:", data);
+
+    // Pass data to lambda function, unlocking any badges user has earned
+    const requestOptions = {
+      method: 'GET',
+      mode: 'no-cors',
+    };
+
+    // TODO: This method should send the data to the lambda service
+    // BUG: This block results in: ngrok 200 ok, success: false, errors: [undefined]
+    fetch(matchProductionHost() ? ThemeConfig.production.lambdaUrl(data) : ThemeConfig.digitalOcean.lambdaUrl(data), requestOptions)
+    .then(response => response.json())
+    .then(resolved => {
+      console.log("resolved",resolved);
+
+      document.getElementById('badge-error').innerText = resolved.errors; })
+    .catch(error => { console.log(error); });
   });
 
   // This method signs the message and sets data accordingly.
   window.ethereum.sendAsync(sendAsyncConfig, sendAsyncCallback);
-
-  // Pass data to lambda function, unlocking any badges user has earned
-  const requestOptions = {
-    method: 'GET',
-    mode: 'no-cors',
-  };
-
-  // TODO: This method should send the data to the lambda service
-  // BUG: This block results in: ngrok 200 ok, success: false, errors: [undefined]
-  fetch(matchProductionHost() ? ThemeConfig.production.lambdaUrl(data) : ThemeConfig.digitalOcean.lambdaUrl(data), requestOptions)
-  .then(response => response.json())
-  .then(resolved => {
-    console.log("resolved",resolved);
-
-    document.getElementById('badge-error').innerText = resolved.errors; })
-  .catch(error => { console.log(error); });
 }
 
 export default {
