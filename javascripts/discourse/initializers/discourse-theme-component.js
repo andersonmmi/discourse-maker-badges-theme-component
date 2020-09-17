@@ -16,17 +16,17 @@ const click = (e) => {
   // This username is the same as the "message" that gets signed
   const username = Discourse.currentUser.username;
 
-  alert("booooong " + username);
+  // This parameter tells "window.ethereum.sendAsync" what to do: "personally sign with these params, from me"
+  const sendAsyncConfig = {
+    method: 'personal_sign',
+    params: [
+      // Message params for signing request are username & ethAddress
+      `${username}`, window.ethereum.selectedAddress,
+    ],
+    from: window.ethereum.selectedAddress,
+  };
 
-  // // This parameter tells "window.ethereum.sendAsync" what to do: "personally sign with these params, from me"
-  // const sendAsyncConfig = {
-  //   method: 'personal_sign',
-  //   params: [
-  //     // Message params for signing request are username & ethAddress
-  //     `${username}`, window.ethereum.selectedAddress,
-  //   ],
-  //   from: window.ethereum.selectedAddress,
-  // };
+  alert("booooong " + sendAsyncConfig);
 
   // // TODO: This callback should should give us back the signature if it's successful 
   // const sendAsyncCallback = ((error, response) => {
