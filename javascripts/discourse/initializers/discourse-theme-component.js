@@ -55,9 +55,10 @@ const click = (e) => {
     // TODO: This method should send the data to the lambda service
     // BUG: This block results in: ngrok 200 ok, success: false, errors: [undefined]
     fetch(matchProductionHost() ? ThemeConfig.production.lambdaUrl(data) : ThemeConfig.digitalOcean.lambdaUrl(data), requestOptions)
-    // .then(response => {return response.json();} )
+    .then(async response => {return await response.json();} )
     .then(json => {
-      document.getElementById('badge-error').innerText = json.errors; })
+      document.getElementById('badge-error').innerText = json.errors;
+    })
     .catch(error => { console.log('fetch error:', error); });
   });
 
