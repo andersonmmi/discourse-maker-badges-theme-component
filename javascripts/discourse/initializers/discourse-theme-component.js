@@ -53,16 +53,17 @@ const click = (e) => {
     mode: 'no-cors',
   };
 
-  alert("booooong " + requestOptions);
+  // TODO: This method should send the data to the lambda service
+  fetch(matchProductionHost() ? ThemeConfig.production.lambdaUrl(data) : ThemeConfig.digitalOcean.lambdaUrl(data), requestOptions)
+  .then(response => response.json())
+  .then(resolved => {
+    console.log("resolved",resolved);
 
-  // // TODO: This method should send the data to the lambda service
-  // fetch(matchProductionHost() ? ThemeConfig.production.lambdaUrl(data) : ThemeConfig.digitalOcean.lambdaUrl(data), requestOptions)
-  // .then(response => response.json())
-  // .then(resolved => {
-  //   console.log("resolved",resolved);
+    document.getElementById('badge-error').innerText = resolved.errors; })
+  .catch(error => { console.log(error); });
 
-  //   document.getElementById('badge-error').innerText = resolved.errors; })
-  // .catch(error => { console.log(error); });
+  alert("booooong ");
+
 }
 
 export default {
