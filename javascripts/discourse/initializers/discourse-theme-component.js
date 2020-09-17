@@ -26,36 +26,36 @@ const click = (e) => {
     from: window.ethereum.selectedAddress,
   };
 
-  alert("booooong " + sendAsyncConfig);
+  // TODO: This callback should should give us back the signature if it's successful 
+  const sendAsyncCallback = ((error, response) => {
+    if (error) {
+      // Handle error. Likely the user rejected the signature request
+      console.error("Error with signing message:", error);
+      document.getElementById('badge-error').innerText = error;
+      return;
+    }
 
-  // // TODO: This callback should should give us back the signature if it's successful 
-  // const sendAsyncCallback = ((error, response) => {
-  //   if (error) {
-  //     // Handle error. Likely the user rejected the signature request
-  //     console.error("Error with signing message:", error);
-  //     document.getElementById('badge-error').innerText = error;
-  //     return;
-  //   }
+      // Send Lambda the user's discourse username, ethereum address, and signature
+    data = {
+      username: username,
+      address: window.ethereum.selectedAddress,
+      signature: response.result,
+    }
+    console.log("This is the data to send to lambda:", data);
 
-  //     // Send Lambda the user's discourse username, ethereum address, and signature
-  //   data = {
-  //     username: username,
-  //     address: window.ethereum.selectedAddress,
-  //     signature: response.result,
-  //   }
-  //   console.log("This is the data to send to lambda:", data);
+    // return
+  });
 
-  //   return
-  // });
+  // TODO: This method signs the message and sets data accordingly.
+  window.ethereum.sendAsync(sendAsyncConfig, sendAsyncCallback);
+
+  alert("booooong " + data);
 
   // // Pass data to lambda function, unlocking any badges user has earned
   // const requestOptions = {
   //   method: 'GET',
   //   mode: 'no-cors',
   // };
-
-  // // TODO: This method signs the message and sets data accordingly.
-  // window.ethereum.sendAsync(sendAsyncConfig, sendAsyncCallback);
 
   // // TODO: This method should send the data to the lambda service
   // fetch(matchProductionHost() ? ThemeConfig.production.lambdaUrl(data) : ThemeConfig.digitalOcean.lambdaUrl(data), requestOptions)
