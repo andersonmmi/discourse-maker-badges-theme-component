@@ -25,8 +25,8 @@ const click = (e) => {
     };
 
     // TODO: This callback should should give us back the signature if it's successful
-    const sendAsyncCallback = (async (error, response) => {
-      return new Promise((resolve, reject) => {
+    const sendAsyncCallback = ((error, response) => {
+      return new Promise(async (resolve, reject) => {
         if (error) {
           // Handle error. Likely the user rejected the signature request
           console.error("Error with signing message:", error);
@@ -47,8 +47,6 @@ const click = (e) => {
           const properURL = matchProductionHost() ? ThemeConfig.production.lambdaUrl(data) : ThemeConfig.digitalOcean.lambdaUrl(data);
           const resData  = await fetch(properURL, { method: 'GET', mode: 'no-cors' });
           const json     = await resData.json();
-
-          console.log("resolved json", json);
 
           document.getElementById('badge-error').innerText = json.errors;
 
