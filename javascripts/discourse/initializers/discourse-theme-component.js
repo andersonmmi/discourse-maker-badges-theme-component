@@ -113,10 +113,10 @@ export default {
         },
       );
       api.createWidget(
-        'maker-badges-error-widget',
+        'maker-badges-errors-widget',
         {
           tagName: "div.maker-badges-errors",
-          html: htmlErrors(),
+          html: htmlErrors,
         }
       )
     });

@@ -1,7 +1,6 @@
   
 <script type="text/discourse-plugin" version="0.8">
     console.log("Maker Badge Theme Component Running");
-    console.log("This", this);
 </script>
 
 <script type="text/x-handlebars" data-template-name="/connectors/user-preferences-account/maker-badges">
@@ -10,7 +9,5 @@
     </div>
     {{mount-widget widget="maker-badges-loader-widget"}}
     <div id='badge-error' class='error-notice text-danger'></div>
-    {{#each this}}
-        <div id='claimed-badges'>{{errors}}</div>
-    {{/each}}
+    {{mount-widget widget="maker-badges-errors-widget"}}
 </script>
