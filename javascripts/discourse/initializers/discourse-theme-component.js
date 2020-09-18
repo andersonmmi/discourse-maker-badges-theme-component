@@ -1,4 +1,10 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
+require.config({
+  paths: {
+  "axios": "https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"
+  },
+  waitSeconds: 0
+});
 const axios = require("axios");
 
 const matchProductionHost = () => {return window.location.host === "forum.makerdao.com"};
