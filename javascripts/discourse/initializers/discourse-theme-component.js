@@ -1,4 +1,5 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
+const axios = require("axios");
 
 const matchProductionHost = () => {return window.location.host === "forum.makerdao.com"};
 
@@ -54,15 +55,16 @@ const click = async (e) => {
     
     // TODO: This method should send the data to the lambda service
     const properURL = matchProductionHost() ? ThemeConfig.production.lambdaUrl(data) : ThemeConfig.digitalOcean.lambdaUrl(data);
-    const resData = await fetch(properURL, { method: 'GET', mode: 'no-cors' });
-    const json = await resData.json();
+    const resData = await axios.get(properURL);
+    console.log("resData:", resData);
+    const json = JSON.parse(resData.data);
     
     document.getElementById('badge-error').innerText = json.errors;
     
     if (json) { resolve(json); }
     else { reject(); }
     });
-    }
+  }
   // END DEF ************************************************************/
 
 
