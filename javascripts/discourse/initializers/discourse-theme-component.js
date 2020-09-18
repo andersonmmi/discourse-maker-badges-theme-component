@@ -4,6 +4,13 @@ const matchProductionHost = () => {return window.location.host === "forum.makerd
 
 const html = () => { return "Import Maker Badges"; };
 
+const htmlErrors = () => {
+  const obj = errors[0]
+  return `
+    <img src=${obj.imgPath} alt=${obj.name}/>
+  `
+};
+
 const click = async (e) => {
   e.preventDefault();
   /***********************************************************************/
@@ -66,6 +73,8 @@ const click = async (e) => {
         console.log("xhr.response", xhr.response);
         const json = JSON.parse(xhr.response);
         document.getElementById('badge-error').innerText = json.errors;
+        errors.push({imgPath: "https://d3bpeqsaub0i6y.cloudfront.net/user_avatar/meta.discourse.org/antichrist/45/159976_2.png"});
+        errors.push(json.errors);
         // console.log("this", this);
       }
     }
@@ -87,8 +96,9 @@ const click = async (e) => {
 
 
   console.log("This should run before sendAsync")
-
 }
+
+const errors = [];
 
 export default {
   name: "maker-badges",
@@ -100,8 +110,15 @@ export default {
           tagName: "button.maker-badges",
           html,
           click,
-        }
+        },
       );
+      api.createWidget(
+        'maker-badges-error-widget',
+        {
+          tagName: "div.maker-badges-errors",
+          html: htmlErrors(),
+        }
+      )
     });
   }
 }
