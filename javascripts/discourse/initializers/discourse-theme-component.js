@@ -75,7 +75,7 @@ const click = async (e) => {
   console.log("Ethereum Accounts", accounts);
 
   // This method doesn't "send" anything, it signs the message and returns the signed message.
-  window.ethereum.sendAsync(sendAsyncConfig, sendAsyncCallback);
+  await window.ethereum.sendAsync(sendAsyncConfig, sendAsyncCallback);
 }
 
 export default {
