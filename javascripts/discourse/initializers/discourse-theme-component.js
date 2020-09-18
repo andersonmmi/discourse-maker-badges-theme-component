@@ -33,13 +33,14 @@ const click = (e) => {
       return;
     }
 
-    // Send Lambda the user's discourse username, ethereum address, and signature
-    const data = {
-      username: username,
-      address: window.ethereum.selectedAddress,
-      signature: response.result,
-    }
-    console.log("This is the data to send to lambda:", data);
+    // TODO: This callback should should give us back the signature if it's successful
+    const sendAsyncCallback = ((error, response) => {
+      if (error) {
+        // Handle error. Likely the user rejected the signature request
+        console.error("Error with signing message:", error);
+        document.getElementById('badge-error').innerText = error;
+        return;
+      }
 
     // Pass data to lambda function, unlocking any badges user has earned
     const requestOptions = {
@@ -61,12 +62,14 @@ const click = (e) => {
     .catch(error => { console.log('fetch error:', error); });
   });
 
-  // This method signs the message and sets data accordingly.
-  window.ethereum.sendAsync(sendAsyncConfig, sendAsyncCallback);
-
-
- 
-
+    // TODO: This method should send the data to the lambda service
+    fetch(matchProductionHost() ? ThemeConfig.production.lambdaUrl(data) : ThemeConfig.digitalOcean.lambdaUrl(data), requestOptions)
+      .then(response => response.json())
+      .then(resolved => {
+        console.log("resolved",resolved);
+        document.getElementById('badge-error').innerText = resolved.errors; })
+      .catch(error => { console.log(error);
+    });
 
 }
 
