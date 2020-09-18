@@ -16,6 +16,6 @@ export default {
     name: 'maker-badge',
     initialize(){
         globalThis.ThemeConfig = ThemeConfig;
-        globalThis.axios = axios
+        globalThis.axios = axios;
     }
 }
