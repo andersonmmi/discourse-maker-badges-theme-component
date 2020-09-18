@@ -61,7 +61,7 @@ const click = (e) => {
     });
 
     // TODO: This method doesn't "send" anything, it signs the message and returns the signed message.
-    window.ethereum.sendAsync(sendAsyncConfig, async (error, result) => { await sendAsyncCallback(error, result); });
+    window.ethereum.sendAsync(sendAsyncConfig, async ( (error, result) => { await sendAsyncCallback(error, result); }) );
 
   });
 }
