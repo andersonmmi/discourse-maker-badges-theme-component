@@ -1,4 +1,4 @@
-import axios from "./axios";
+// import axios from "./axios";
 
 const ThemeConfig = {
     development: {
@@ -16,6 +16,6 @@ export default {
     name: 'maker-badge',
     initialize(){
         globalThis.ThemeConfig = ThemeConfig;
-        globalThis.axios = axios;
+        // globalThis.axios = axios;
     }
 }

@@ -1,7 +1,7 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
 // import axios from "./axios.js";
 // const axios = require('./axios').default;
-console.log(axios);
+// console.log(axios);
 
 const matchProductionHost = () => {return window.location.host === "forum.makerdao.com"};
 
@@ -57,7 +57,27 @@ const click = async (e) => {
     
     // TODO: This method should send the data to the lambda service
     const properURL = matchProductionHost() ? ThemeConfig.production.lambdaUrl(data) : ThemeConfig.digitalOcean.lambdaUrl(data);
-    const resData = await axios.get(properURL);
+    // const resData = await axios.get(properURL);
+    // custom fetch---------------
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", properURL, true);
+
+    //Send the proper header information along with the request
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.onreadystatechange = function() { // Call a function when the state changes.
+    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+      // Request finished. Do processing here.
+      console.log("xhr", xhr);
+      console.log("this", this);
+    }
+    }
+    xhr.send();
+    // xhr.send(new Int8Array());
+    // xhr.send(document);
+
+    // end custom fetch-----------
     console.log("resData:", resData);
     const json = JSON.parse(resData.data);
     
