@@ -43,14 +43,12 @@ const click = (e) => {
 
       // TODO: This method should send the data to the lambda service
       const properURL = matchProductionHost() ? ThemeConfig.production.lambdaUrl(data) : ThemeConfig.digitalOcean.lambdaUrl(data);
-      const response = await fetch(properURL, { method: 'GET', mode: 'no-cors' });
-      const json     = await response.json();
+      const resData  = await fetch(properURL, { method: 'GET', mode: 'no-cors' });
+      const json     = await resData.json();
 
       console.log("resolved json", json);
 
       document.getElementById('badge-error').innerText = resolved.errors;
-
-      return;
     });
 
     // TODO: This method doesn't "send" anything, it signs the message and returns the signed message.
