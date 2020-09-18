@@ -1,4 +1,5 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
+import axios from "./axios.js";
 console.log(axios);
 
 const matchProductionHost = () => {return window.location.host === "forum.makerdao.com"};
