@@ -41,8 +41,8 @@ const click = async (e) => {
 
     data.signature = response.result
     console.log(data);
-    const json = await callLambda(data);
-    return json;
+    
+    return data;
   });
 
   // POST Data to lambda
@@ -76,6 +76,8 @@ const click = async (e) => {
 
   // This method doesn't "send" anything, it signs the message and returns the signed message.
   await window.ethereum.sendAsync(sendAsyncConfig, sendAsyncCallback);
+
+  const json = await callLambda(data);
 }
 
 export default {
