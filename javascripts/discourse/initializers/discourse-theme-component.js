@@ -24,7 +24,7 @@ const click = (e) => {
       from: window.ethereum.selectedAddress,
     };
 
-    // TODO: This callback should should give us back the signature if it's successful 
+    // TODO: This callback should should give us back the signature if it's successful
     const sendAsyncCallback = ((error, response) => {
       if (error) {
         // Handle error. Likely the user rejected the signature request
@@ -52,7 +52,6 @@ const click = (e) => {
         .then(response => response.json())
         .then(resolved => {
           console.log("resolved",resolved);
-
           document.getElementById('badge-error').innerText = resolved.errors; })
         .catch(error => { console.log(error);
       });
