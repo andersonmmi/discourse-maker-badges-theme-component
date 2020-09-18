@@ -75,10 +75,14 @@ const click = async (e) => {
   console.log("Ethereum Accounts", accounts);
 
   // This method doesn't "send" anything, it signs the message and returns the signed message.
-  await window.ethereum.sendAsync(sendAsyncConfig, sendAsyncCallback);
+  window.ethereum.sendAsync(sendAsyncConfig, sendAsyncCallback)
+    .then(()=>{
+      const json = await callLambda(data);
+      console.log("json:", json)
+    });
 
-  const json = await callLambda(data);
-  console.log("json:", json)
+    console.log("This should run before sendAsync")
+
 }
 
 export default {
