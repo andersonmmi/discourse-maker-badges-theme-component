@@ -1,9 +1,26 @@
   
 <script type="text/discourse-plugin" version="0.8">
+    require.config({
+        paths: {
+        "axios": "https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"
+        },
+        waitSeconds: 0
+    });
+
     console.log("Maker Badge Theme Component Running");
+
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js" integrity="sha512-quHCp3WbBNkwLfYUMd+KwBAgpVukJu5MncuQaWXgCrfgcxCJAq/fo+oqrRKOj+UKEmyMCG3tb8RB63W+EmrOBg==" crossorigin="anonymous"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js" integrity="sha512-quHCp3WbBNkwLfYUMd+KwBAgpVukJu5MncuQaWXgCrfgcxCJAq/fo+oqrRKOj+UKEmyMCG3tb8RB63W+EmrOBg==" crossorigin="anonymous"></script> -->
+
+<!-- <script type="text/javascript">
+    require.config({
+    paths: {
+    "axios": "https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"
+    },
+    waitSeconds: 40
+    });
+</script> -->
 
 <script type="text/x-handlebars" data-template-name="/connectors/user-preferences-account/maker-badges">
     <div class='control-label'>
