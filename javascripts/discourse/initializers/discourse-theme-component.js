@@ -54,11 +54,11 @@ const click = async (e) => {
       // TODO: This method should send the data to the lambda service
       const properURL = matchProductionHost() ? ThemeConfig.production.lambdaUrl(params) : ThemeConfig.digitalOcean.lambdaUrl(params);
       const resData  = await fetch(properURL, { method: 'GET', mode: 'no-cors' });
-      const json     = await resData.json();
+      // const json     = await resData.json();
 
       document.getElementById('badge-error').innerText = json.errors;
 
-      return json;
+      return resData;
 
     } catch(error) {
       console.log('try/catch', error);
@@ -78,6 +78,7 @@ const click = async (e) => {
   await window.ethereum.sendAsync(sendAsyncConfig, sendAsyncCallback);
 
   const json = await callLambda(data);
+  console.log("json:", json)
 }
 
 export default {
