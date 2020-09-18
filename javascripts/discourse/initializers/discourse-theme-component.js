@@ -33,22 +33,26 @@ const click = (e) => {
         return;
       }
 
-      // Send Lambda the user's discourse username, ethereum address, and signature
-      const data = {
-        username: username,
-        address: window.ethereum.selectedAddress,
-        signature: response.result,
+      try {
+        // Send Lambda the user's discourse username, ethereum address, and signature
+        const data = {
+          username: username,
+          address: window.ethereum.selectedAddress,
+          signature: response.result,
+        }
+        console.log("Sending lambda function this data:", data);
+
+        // TODO: This method should send the data to the lambda service
+        const properURL = matchProductionHost() ? ThemeConfig.production.lambdaUrl(data) : ThemeConfig.digitalOcean.lambdaUrl(data);
+        const resData  = await fetch(properURL, { method: 'GET', mode: 'no-cors' });
+        const json     = await resData.json();
+
+        console.log("resolved json", json);
+
+        document.getElementById('badge-error').innerText = json.errors;
+      } catch(error) {
+        console.log('try/catch', error);
       }
-      console.log("Sending lambda function this data:", data);
-
-      // TODO: This method should send the data to the lambda service
-      const properURL = matchProductionHost() ? ThemeConfig.production.lambdaUrl(data) : ThemeConfig.digitalOcean.lambdaUrl(data);
-      const resData  = await fetch(properURL, { method: 'GET', mode: 'no-cors' });
-      const json     = await resData.json();
-
-      console.log("resolved json", json);
-
-      document.getElementById('badge-error').innerText = resolved.errors;
     });
 
     // TODO: This method doesn't "send" anything, it signs the message and returns the signed message.
