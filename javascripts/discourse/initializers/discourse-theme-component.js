@@ -46,26 +46,23 @@ const click = async (e) => {
   });
 
   // POST Data to lambda
-  const callLambda = async (params) => {
-    try {
-
-      console.log("Sending lambda function this data:", params);
-
-      // TODO: This method should send the data to the lambda service
-      const properURL = matchProductionHost() ? ThemeConfig.production.lambdaUrl(params) : ThemeConfig.digitalOcean.lambdaUrl(params);
-      const resData  = await fetch(properURL, { method: 'GET', mode: 'no-cors' });
-      const json     = await resData.json();
-
-      document.getElementById('badge-error').innerText = json.errors;
-
-      return resData;
-
-    } catch(error) {
-      console.log('try/catch', error);
-      document.getElementById('badge-error').innerText = error;
-      return error;
+  const callLambda = () => {
+    return new Promise(async (resolve, reject) => {
+    
+    
+    console.log("Sending lambda function this data:", data);
+    
+    // TODO: This method should send the data to the lambda service
+    const properURL = matchProductionHost() ? ThemeConfig.production.lambdaUrl(data) : ThemeConfig.digitalOcean.lambdaUrl(data);
+    const resData = await fetch(properURL, { method: 'GET', mode: 'no-cors' });
+    const json = await resData.json();
+    
+    document.getElementById('badge-error').innerText = json.errors;
+    
+    if (json) { resolve(json); }
+    else { reject(); }
+    });
     }
-  }
   // END DEF ************************************************************/
 
 
