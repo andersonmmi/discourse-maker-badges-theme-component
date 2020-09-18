@@ -1,7 +1,4 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
-// import axios from "./axios.js";
-// const axios = require('./axios').default;
-// console.log(axios);
 
 const matchProductionHost = () => {return window.location.host === "forum.makerdao.com"};
 
@@ -34,7 +31,7 @@ const click = async (e) => {
   };
 
   // This callback should should give us back the signature if it's successful
-  const sendAsyncCallback = ( async (error, response) => {
+  const sendAsyncCallback = ( (error, response) => {
     if (error) {
       // Handle error. Likely the user rejected the signature request
       console.error("Error with signing message:", error);
@@ -45,20 +42,17 @@ const click = async (e) => {
     data.signature = response.result
     console.log(data);
     
+    callLambda()
     return data;
   });
 
   // POST Data to lambda
   const callLambda = () => {
-    return new Promise(async (resolve, reject) => {
-    
     
     console.log("Sending lambda function this data:", data);
     
     // TODO: This method should send the data to the lambda service
     const properURL = matchProductionHost() ? ThemeConfig.production.lambdaUrl(data) : ThemeConfig.digitalOcean.lambdaUrl(data);
-    // const resData = await axios.get(properURL);
-    // custom fetch---------------
     
     var xhr = new XMLHttpRequest();
     xhr.open("GET", properURL, true);
@@ -67,25 +61,16 @@ const click = async (e) => {
     xhr.setRequestHeader("Content-Type", "application/json");
 
     xhr.onreadystatechange = function() { // Call a function when the state changes.
-    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-      // Request finished. Do processing here.
-      console.log("xhr", xhr);
-      console.log("this", this);
-    }
+      if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+        // Request finished. Do processing here.
+        console.log("xhr.response", xhr.response);
+        const json = JSON.parse(xhr.response);
+        document.getElementById('badge-error').innerText = json.errors;
+        // console.log("this", this);
+      }
     }
     xhr.send();
-    // xhr.send(new Int8Array());
-    // xhr.send(document);
-
-    // end custom fetch-----------
-    console.log("resData:", resData);
-    const json = JSON.parse(resData.data);
     
-    document.getElementById('badge-error').innerText = json.errors;
-    
-    if (json) { resolve(json); }
-    else { reject(); }
-    });
   }
   // END DEF ************************************************************/
 
@@ -98,12 +83,8 @@ const click = async (e) => {
   // This method doesn't "send" anything, it signs the message and returns the signed message.
   window.ethereum.sendAsync(sendAsyncConfig, sendAsyncCallback);
     
-  setTimeout(callLambda,60000)
-  // =>{
-  //   const json = await callLambda(data);
-  //   console.log("json:", json);
-  // }, 6000);
-  
+  // setTimeout(callLambda,25000)
+
 
   console.log("This should run before sendAsync")
 
