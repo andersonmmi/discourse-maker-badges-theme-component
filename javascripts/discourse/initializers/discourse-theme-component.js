@@ -5,7 +5,8 @@ import { withPluginApi } from "discourse/lib/plugin-api";
 //   },
 //   waitSeconds: 0
 // });
-// const axios = require("axios");
+// const axios = require("./axios");
+// console.log("require.config:",require.config);
 
 const matchProductionHost = () => {return window.location.host === "forum.makerdao.com"};
 
