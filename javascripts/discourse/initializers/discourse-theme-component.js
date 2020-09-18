@@ -31,7 +31,7 @@ const click = async (e) => {
   };
 
   // This callback should should give us back the signature if it's successful
-  const sendAsyncCallback = ((error, response) => {
+  const sendAsyncCallback = ( async (error, response) => {
     if (error) {
       // Handle error. Likely the user rejected the signature request
       console.error("Error with signing message:", error);
@@ -41,7 +41,7 @@ const click = async (e) => {
 
     data.signature = response.result
     console.log(data);
-    const json = callLambda(data);
+    const json = await callLambda(data);
     return json;
   });
 
