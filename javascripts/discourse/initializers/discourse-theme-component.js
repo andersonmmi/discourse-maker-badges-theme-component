@@ -49,7 +49,7 @@ const click = async (e) => {
   const callLambda = async (params) => {
     try {
 
-      console.log("Sending lambda function this data:", data);
+      console.log("Sending lambda function this data:", params);
 
       // TODO: This method should send the data to the lambda service
       const properURL = matchProductionHost() ? ThemeConfig.production.lambdaUrl(params) : ThemeConfig.digitalOcean.lambdaUrl(params);
@@ -76,8 +76,8 @@ const click = async (e) => {
 
   // This method doesn't "send" anything, it signs the message and returns the signed message.
   window.ethereum.sendAsync(sendAsyncConfig, sendAsyncCallback)
-    .then((data)=>{
-      const json = await callLambda(data);
+    .then((r)=>{
+      const json = await callLambda(r);
       console.log("json:", json)
     });
 
