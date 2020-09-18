@@ -25,7 +25,7 @@ const click = (e) => {
     };
 
     // TODO: This callback should should give us back the signature if it's successful
-    const sendAsyncCallback = ((error, response) => {
+    const sendAsyncCallback = (async (error, response) => {
       if (error) {
         // Handle error. Likely the user rejected the signature request
         console.error("Error with signing message:", error);
@@ -41,21 +41,16 @@ const click = (e) => {
       }
       console.log("Sending lambda function this data:", data);
 
-      // Pass data to lambda function, unlocking any badges user has earned
-      const requestOptions = {
-        method: 'GET',
-        mode: 'no-cors',
-      };
-
       // TODO: This method should send the data to the lambda service
-      fetch(matchProductionHost() ? ThemeConfig.production.lambdaUrl(data) : ThemeConfig.digitalOcean.lambdaUrl(data), requestOptions)
-        .then(response => response.json())
-        .then(resolved => {
-          console.log("resolved",resolved);
-          document.getElementById('badge-error').innerText = resolved.errors; })
-        .catch(error => { console.log(error);
-      });
+      const properURL = matchProductionHost() ? ThemeConfig.production.lambdaUrl(data) : ThemeConfig.digitalOcean.lambdaUrl(data);
+      const response = await fetch(properURL, { method: 'GET', mode: 'no-cors' });
+      const json     = await response.json();
 
+      console.log("resolved json", json);
+
+      document.getElementById('badge-error').innerText = resolved.errors;
+
+      return;
     });
 
     // TODO: This method doesn't "send" anything, it signs the message and returns the signed message.
