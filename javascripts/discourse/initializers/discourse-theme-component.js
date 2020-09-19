@@ -65,7 +65,7 @@ const click = async (e) => {
         // Request finished. Do processing here.
         console.log("xhr.response", xhr.response);
         const json = JSON.parse(xhr.response);
-        document.getElementById('badge-error').innerText = json.errors;
+        document.getElementById('badge-error').innerText = JSON.stringify(json.errors);
         // errors.push({imgPath: "https://d3bpeqsaub0i6y.cloudfront.net/user_avatar/meta.discourse.org/antichrist/45/159976_2.png"});
         // errors.push(json.errors);
         // console.log("this", this);
