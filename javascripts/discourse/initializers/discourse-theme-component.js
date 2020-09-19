@@ -4,13 +4,6 @@ const matchProductionHost = () => {return window.location.host === "forum.makerd
 
 const html = () => { return "Import Maker Badges"; };
 
-const htmlErrors = () => {
-  const obj = errors[0]
-  return `
-    <img src=${obj.imgPath} alt=${obj.name}/>
-  `
-};
-
 const click = async (e) => {
   e.preventDefault();
   /***********************************************************************/
@@ -73,8 +66,8 @@ const click = async (e) => {
         console.log("xhr.response", xhr.response);
         const json = JSON.parse(xhr.response);
         document.getElementById('badge-error').innerText = json.errors;
-        errors.push({imgPath: "https://d3bpeqsaub0i6y.cloudfront.net/user_avatar/meta.discourse.org/antichrist/45/159976_2.png"});
-        errors.push(json.errors);
+        // errors.push({imgPath: "https://d3bpeqsaub0i6y.cloudfront.net/user_avatar/meta.discourse.org/antichrist/45/159976_2.png"});
+        // errors.push(json.errors);
         // console.log("this", this);
       }
     }
@@ -112,13 +105,6 @@ export default {
           click,
         },
       );
-      api.createWidget(
-        'maker-badges-errors-widget',
-        {
-          tagName: "div.maker-badges-errors",
-          html: htmlErrors,
-        }
-      )
     });
   }
 }
