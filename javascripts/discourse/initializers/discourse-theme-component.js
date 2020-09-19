@@ -1,13 +1,38 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
 
-const matchProductionHost = () => {return window.location.host === "forum.makerdao.com"};
+const matchProductionHost = () => { return window.location.host === "forum.makerdao.com"};
 
 const html = () => { return "Import Maker Badges"; };
 
+// POST Data to lambda
+const queryBadgesAPI = (data) => {
+  console.log("Sending lambda function this data:", data);
+
+  const xhr       = new XMLHttpRequest();
+  const properURL = matchProductionHost() ? ThemeConfig.production.lambdaUrl(data) : ThemeConfig.digitalOcean.lambdaUrl(data);
+
+  xhr.open("GET", properURL, true);
+
+  //Send the proper header information along with the request
+  xhr.setRequestHeader("Content-Type", "application/json");
+
+  // Call a function when the state changes.
+  xhr.onreadystatechange = function() {
+    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+      try {
+        const json = JSON.parse(xhr.response); console.log(json.badges);
+        document.getElementById('badge-error').innerText = json.errors;
+      }
+      catch (error) { document.getElementById('badge-error').innerText = 'Badges API - JSON Parse Error'; }
+    }
+  }
+
+  xhr.send();
+}
+
 const click = async (e) => {
   e.preventDefault();
-  /***********************************************************************/
-  // Definitions ********************************************************/
+
   // This username is the same as the "message" that gets signed
   const username = Discourse.currentUser.username;
 
@@ -21,7 +46,7 @@ const click = async (e) => {
 
   // This parameter tells "window.ethereum.sendAsync" what to do:
   // "personally sign with these params, from me"
-  const sendAsyncConfig = {
+  const config = {
     method: 'personal_sign',
     params: [
       // message, signer
@@ -31,67 +56,23 @@ const click = async (e) => {
   };
 
   // This callback should should give us back the signature if it's successful
-  const sendAsyncCallback = ( (error, response) => {
-    if (error) {
-      // Handle error. Likely the user rejected the signature request
-      console.error("Error with signing message:", error);
+  const callback = ((error, response) => {
+    if (error) { console.error("Error with signing message:", error);
       document.getElementById('badge-error').innerText = error;
-      return;
+      return error;
     }
 
     data.signature = response.result
-    console.log(data);
-    
-    callLambda()
-    return data;
+
+    return queryBadgesAPI(data);
   });
 
-  // POST Data to lambda
-  const callLambda = () => {
-    
-    console.log("Sending lambda function this data:", data);
-    
-    // TODO: This method should send the data to the lambda service
-    const properURL = matchProductionHost() ? ThemeConfig.production.lambdaUrl(data) : ThemeConfig.digitalOcean.lambdaUrl(data);
-    
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", properURL, true);
+  // get eth accounts
+  await window.ethereum.send('eth_requestAccounts');
 
-    //Send the proper header information along with the request
-    xhr.setRequestHeader("Content-Type", "application/json");
-
-    xhr.onreadystatechange = function() { // Call a function when the state changes.
-      if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-        // Request finished. Do processing here.
-        console.log("xhr.response", xhr.response);
-        const json = JSON.parse(xhr.response);
-        document.getElementById('badge-error').innerText = JSON.stringify(json.errors);
-        // errors.push({imgPath: "https://d3bpeqsaub0i6y.cloudfront.net/user_avatar/meta.discourse.org/antichrist/45/159976_2.png"});
-        // errors.push(json.errors);
-        // console.log("this", this);
-      }
-    }
-    xhr.send();
-    
-  }
-  // END DEF ************************************************************/
-
-
-  // Composition Code
-  const accounts = await window.ethereum.send('eth_requestAccounts');
-
-  console.log("Ethereum Accounts", accounts);
-
-  // This method doesn't "send" anything, it signs the message and returns the signed message.
-  window.ethereum.sendAsync(sendAsyncConfig, sendAsyncCallback);
-    
-  // setTimeout(callLambda,25000)
-
-
-  console.log("This should run before sendAsync")
+  // This method signs the message, returns the signed message to the callback.
+  window.ethereum.sendAsync(config, callback);
 }
-
-const errors = [];
 
 export default {
   name: "maker-badges",
