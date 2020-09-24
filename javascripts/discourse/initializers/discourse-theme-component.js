@@ -36,6 +36,14 @@ const click = (e) => {
   // This username is the same as the "message" that gets signed
   const username = Discourse.currentUser.username;
 
+  // If I put this up here, will it get the account after I connect my wallet?
+    // get eth accounts; use .then to immediately sign message after wallet connection
+    window.ethereum.send('eth_requestAccounts').then((accounts)=>{
+      console.log("accounts", accounts)
+      // This method signs the message, returns the signed message to the callback.
+      window.ethereum.sendAsync(config, callback);
+    });
+
   // Params username, ethereum address,
   // and signature null until returned from ethers call
   const data = {
@@ -67,12 +75,7 @@ const click = (e) => {
     return queryBadgesAPI(data);
   });
 
-  // get eth accounts; use .then to immediately sign message after wallet connection
-  window.ethereum.send('eth_requestAccounts').then((accounts)=>{
-    console.log("accounts", accounts)
-    // This method signs the message, returns the signed message to the callback.
-    window.ethereum.sendAsync(config, callback);
-  });
+
 }
 
 export default {
