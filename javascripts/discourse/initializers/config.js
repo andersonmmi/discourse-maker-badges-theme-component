@@ -1,6 +1,6 @@
 const ThemeConfig = {
     development: {
-        lambdaUrl: (message)=>{return `https://075d145e319a.ngrok.io/dev/discourse?username=${message.username}&address=${message.address}&signature=${message.signature}`;}
+        lambdaUrl: (message)=>{return `https://1i6l13wb90.execute-api.us-east-1.amazonaws.com/dev/discourse?username=${message.username}&address=${message.address}&signature=${message.signature}`;}
     },
     digitalOcean: {
         lambdaUrl: (message)=>{return `https://web33.ngrok.io/dev/discourse?username=${message.username}&address=${message.address}&signature=${message.signature}`;}
