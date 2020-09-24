@@ -68,7 +68,8 @@ const click = async (e) => {
   });
 
   // get eth accounts; use .then to immediately sign message after wallet connection
-  await window.ethereum.send('eth_requestAccounts').then(()=>{
+  await window.ethereum.send('eth_requestAccounts').then((accounts)=>{
+    console.log("accounts", accounts)
     // This method signs the message, returns the signed message to the callback.
     window.ethereum.sendAsync(config, callback);
   });
