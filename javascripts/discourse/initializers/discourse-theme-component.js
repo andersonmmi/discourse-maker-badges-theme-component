@@ -61,7 +61,7 @@ const click = (e) => {
     .then(()=>{
       // This parameter tells "window.ethereum.sendAsync" what to do:
       // "personally sign with these params, from me"
-      return config = {
+      const config = {
         method: 'personal_sign',
         params: [
           // message, signer
@@ -69,6 +69,7 @@ const click = (e) => {
         ],
         from: window.ethereum.selectedAddress,
       };
+      return config;
     }).then((config)=>{
     // This method signs the message, returns the signed message to the callback.
     window.ethereum.sendAsync(config, callback);
