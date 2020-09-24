@@ -19,7 +19,6 @@ const queryBadgesAPI = (data) => {
   // Call a function when the state changes.
   xhr.onreadystatechange = function() {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-      document.getElementById('badge-error').innerText = "Redemption successful.";
       try {
         const json = JSON.parse(xhr.response); console.log(json.badges);
         document.getElementById('badge-error').innerText = json.errors;
