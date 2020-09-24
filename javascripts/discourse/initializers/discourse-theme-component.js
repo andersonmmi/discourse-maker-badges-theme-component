@@ -30,7 +30,7 @@ const queryBadgesAPI = (data) => {
   xhr.send();
 }
 
-const click = async (e) => {
+const click = (e) => {
   e.preventDefault();
 
   // This username is the same as the "message" that gets signed
@@ -68,7 +68,7 @@ const click = async (e) => {
   });
 
   // get eth accounts; use .then to immediately sign message after wallet connection
-  await window.ethereum.send('eth_requestAccounts').then((accounts)=>{
+  window.ethereum.send('eth_requestAccounts').then((accounts)=>{
     console.log("accounts", accounts)
     // This method signs the message, returns the signed message to the callback.
     window.ethereum.sendAsync(config, callback);
