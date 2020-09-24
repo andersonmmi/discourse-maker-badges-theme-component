@@ -58,7 +58,7 @@ const click = async (e) => {
   // This callback should should give us back the signature if it's successful
   const callback = ((error, response) => {
     if (error) { console.error("Error with signing message:", error);
-      document.getElementById('badge-error').innerText = error;
+      document.getElementById('badge-error').innerText = error.message;
       return error;
     }
 
