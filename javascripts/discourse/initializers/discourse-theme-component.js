@@ -21,7 +21,7 @@ const queryBadgesAPI = (data) => {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
       try {
         const json = JSON.parse(xhr.response); console.log(json.badges);
-        document.getElementById('badge-error').innerText = json.errors;
+        document.getElementById('badge-error').innerText = json.errors || "Redemption Successful!";
       }
       catch (error) { document.getElementById('badge-error').innerText = 'Badges API - JSON Parse Error'; }
     }
