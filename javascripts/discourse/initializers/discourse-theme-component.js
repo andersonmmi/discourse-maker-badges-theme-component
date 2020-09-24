@@ -9,7 +9,7 @@ const queryBadgesAPI = (data) => {
   console.log("Sending lambda function this data:", data);
 
   const xhr       = new XMLHttpRequest();
-  const properURL = matchProductionHost() ? ThemeConfig.production.lambdaUrl(data) : ThemeConfig.digitalOcean.lambdaUrl(data);
+  const properURL = matchProductionHost() ? ThemeConfig.production.lambdaUrl(data) : ThemeConfig.development.lambdaUrl(data);
 
   xhr.open("GET", properURL, true);
 
