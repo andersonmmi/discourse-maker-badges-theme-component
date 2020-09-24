@@ -67,11 +67,11 @@ const click = async (e) => {
     return queryBadgesAPI(data);
   });
 
-  // get eth accounts
-  await window.ethereum.send('eth_requestAccounts');
-
-  // This method signs the message, returns the signed message to the callback.
-  window.ethereum.sendAsync(config, callback);
+  // get eth accounts; use .then to immediately sign message after wallet connection
+  await window.ethereum.send('eth_requestAccounts').then(()=>{
+    // This method signs the message, returns the signed message to the callback.
+    window.ethereum.sendAsync(config, callback);
+  });
 }
 
 export default {
