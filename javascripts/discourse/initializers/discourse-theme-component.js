@@ -44,17 +44,6 @@ const click = (e) => {
     signature: null,
   }
 
-  // This parameter tells "window.ethereum.sendAsync" what to do:
-  // "personally sign with these params, from me"
-  const config = {
-    method: 'personal_sign',
-    params: [
-      // message, signer
-      `${username}`, window.ethereum.selectedAddress,
-    ],
-    from: window.ethereum.selectedAddress,
-  };
-
   // This callback should should give us back the signature if it's successful
   const callback = ((error, response) => {
     if (error) { console.error("Error with signing message:", error);
@@ -68,8 +57,20 @@ const click = (e) => {
   });
 
   // get eth accounts; use .then to immediately sign message after wallet connection
-  window.ethereum.send('eth_requestAccounts').then( async (accounts)=>{
-    await console.log("accounts", accounts)
+  window.ethereum.send('eth_requestAccounts')
+    .then(()=>{
+      // This parameter tells "window.ethereum.sendAsync" what to do:
+      // "personally sign with these params, from me"
+      const config = {
+        method: 'personal_sign',
+        params: [
+          // message, signer
+          `${username}`, window.ethereum.selectedAddress,
+        ],
+        from: window.ethereum.selectedAddress,
+      };
+      return config;
+    }).then((config)=>{
     // This method signs the message, returns the signed message to the callback.
     window.ethereum.sendAsync(config, callback);
   });
