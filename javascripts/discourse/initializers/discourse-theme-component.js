@@ -15,6 +15,8 @@ const queryBadgesAPI = (data) => {
 
   //Send the proper header information along with the request
   xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+  // xhr.setRequestHeader("Content-Type", "application/json");
 
   // Call a function when the state changes.
   xhr.onreadystatechange = function() {
