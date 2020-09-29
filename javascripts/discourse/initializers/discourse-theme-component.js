@@ -27,8 +27,9 @@ const queryBadgesAPI = (data) => {
         document.getElementById('badge-error').innerText = json.errors;
 
         // User feedback: no longer unlocking badges
-        json.badges.length > 0
-        ? document.getElementById('badge-status').innerText = `${json.badges.length} new Maker badges have been awarded to your profile!`
+        const count = json.badges.length;
+        count > 0
+        ? document.getElementById('badge-status').innerText = `${count} new Maker badge${count > 1 ? "s": ""} have been awarded to your profile!`
         : document.getElementById('badge-status').innerText = "No new eligible badges found."
       }
       catch (error) { 
