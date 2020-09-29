@@ -22,6 +22,7 @@ const queryBadgesAPI = (data) => {
   xhr.onreadystatechange = function() {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
       try {
+        console.log("onreadystatechange try encountered")
         const json = JSON.parse(xhr.response); console.log(json.badges);
         document.getElementById('badge-error').innerText = json.errors;
 
