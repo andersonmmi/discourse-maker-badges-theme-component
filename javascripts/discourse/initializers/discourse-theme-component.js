@@ -27,13 +27,15 @@ const queryBadgesAPI = (data) => {
         document.getElementById('badge-error').innerText = json.errors;
 
         // User feedback: no longer unlocking badges
-        document.getElementById('badge-status').innerText = "";
+        json.badges.length > 0 ?
+          document.getElementById('badge-status').innerText = `${json.badges.length} new Maker badges have been awarded to your profile!`:
+          document.getElementById('badge-status').innerText = "No new eligible badges found."
       }
       catch (error) { 
         document.getElementById('badge-error').innerText = 'Badges API - JSON Parse Error'; 
       
         // User feedback: no longer unlocking badges
-        document.getElementById('badge-status').innerText = "";
+        document.getElementById('badge-status').innerText = "No new eligible badges found.";
       }
     }
   }
@@ -61,7 +63,7 @@ const click = (e) => {
       document.getElementById('badge-error').innerText = error.message;
 
       // User feedback: no longer unlocking badges
-      document.getElementById('badge-status').innerText = "";
+      document.getElementById('badge-status').innerText = "No new eligible badges found.";
       return error;
     }
 
