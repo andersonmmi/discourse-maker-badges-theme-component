@@ -24,8 +24,16 @@ const queryBadgesAPI = (data) => {
       try {
         const json = JSON.parse(xhr.response); console.log(json.badges);
         document.getElementById('badge-error').innerText = json.errors;
+
+        // User feedback: no longer unlocking badges
+        document.getElementById('badge-status').innerText = "";
       }
-      catch (error) { document.getElementById('badge-error').innerText = 'Badges API - JSON Parse Error'; }
+      catch (error) { 
+        document.getElementById('badge-error').innerText = 'Badges API - JSON Parse Error'; 
+      
+        // User feedback: no longer unlocking badges
+        document.getElementById('badge-status').innerText = "";
+      }
     }
   }
 
@@ -50,6 +58,9 @@ const click = (e) => {
   const callback = ((error, response) => {
     if (error) { console.error("Error with signing message:", error);
       document.getElementById('badge-error').innerText = error.message;
+
+      // User feedback: no longer unlocking badges
+      document.getElementById('badge-status').innerText = "";
       return error;
     }
 
