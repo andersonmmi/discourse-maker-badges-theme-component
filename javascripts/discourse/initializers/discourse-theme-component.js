@@ -42,7 +42,7 @@ const click = (e) => {
   // and signature null until returned from ethers call
   const data = {
     username: username,
-    address: window.ethereum.selectedAddress,
+    address: null,
     signature: null,
   }
 
@@ -53,7 +53,8 @@ const click = (e) => {
       return error;
     }
 
-    data.signature = response.result
+    data.signature = response.result;
+    data.address = window.ethereum.selectedAddress;
 
     return queryBadgesAPI(data);
   });
