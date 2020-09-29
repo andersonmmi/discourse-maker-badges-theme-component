@@ -27,7 +27,7 @@ const queryBadgesAPI = (data) => {
 
         // User feedback: no longer unlocking badges
         const count = json.badges.length;
-        count > 0
+        !json.errors
         ? document.getElementById('badge-status').innerText = `${count} new Maker badge${count > 1 ? "s": ""} ha${count > 1 ? "ve": "s"} been awarded to your profile!`
         : document.getElementById('badge-status').innerText = "No new eligible badges found."
       }
