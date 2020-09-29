@@ -27,9 +27,9 @@ const queryBadgesAPI = (data) => {
         document.getElementById('badge-error').innerText = json.errors;
 
         // User feedback: no longer unlocking badges
-        json.badges.length > 0 ?
-          document.getElementById('badge-status').innerText = `${json.badges.length} new Maker badges have been awarded to your profile!`:
-          document.getElementById('badge-status').innerText = "No new eligible badges found."
+        json.badges.length > 0
+        ? document.getElementById('badge-status').innerText = `${json.badges.length} new Maker badges have been awarded to your profile!`
+        : document.getElementById('badge-status').innerText = "No new eligible badges found."
       }
       catch (error) { 
         document.getElementById('badge-error').innerText = 'Badges API - JSON Parse Error'; 
