@@ -26,7 +26,7 @@ const queryBadgesAPI = (data) => {
         document.getElementById('badge-error').innerText = json.errors;
 
         // User feedback: no longer unlocking badges
-        const errorsEmpty = Object.values(json.errors);
+        const errorsEmpty = Object.prototype.toString(json.errors);
         console.log("errorsEmpty", typeof errorsEmpty, errorsEmpty)
         
         const count = json.badges.length;
