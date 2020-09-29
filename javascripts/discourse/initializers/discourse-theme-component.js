@@ -25,11 +25,10 @@ const queryBadgesAPI = (data) => {
         const json = JSON.parse(xhr.response); console.log(json.badges);
         document.getElementById('badge-error').innerText = json.errors;
 
-        // User feedback: no longer unlocking badges
+        // Render appropriate badge status
         const errorsEmpty = !json.errors.hasOwnProperty("0");
-        console.log("errorsEmpty", typeof errorsEmpty, errorsEmpty)
-        
         const count = json.badges.length;
+
         errorsEmpty
         ? document.getElementById('badge-status').innerText = `${count} new Maker badge${count > 1 ? "s": ""} ha${count > 1 ? "ve": "s"} been awarded to your profile!`
         : document.getElementById('badge-status').innerText = "No new eligible badges found."
@@ -37,7 +36,7 @@ const queryBadgesAPI = (data) => {
       catch (error) { 
         document.getElementById('badge-error').innerText = 'Badges API - JSON Parse Error'; 
       
-        // User feedback: no longer unlocking badges
+        // Render appropriate badge status
         document.getElementById('badge-status').innerText = "No new eligible badges found.";
       }
     }
@@ -65,7 +64,7 @@ const click = (e) => {
     if (error) { console.error("Error with signing message:", error);
       document.getElementById('badge-error').innerText = error.message;
 
-      // User feedback: no longer unlocking badges
+      // Render appropriate badge status
       document.getElementById('badge-status').innerText = "No new eligible badges found.";
       return error;
     }
@@ -91,7 +90,7 @@ const click = (e) => {
       };
       return config;
     }).then((config)=>{
-      // User feedback: unlocking badges
+      // Set badge status to "Checking..."
       document.getElementById('badge-status').innerText = "Checking for eligible badges...";
 
       // This method signs the message, returns the signed message to the callback.
