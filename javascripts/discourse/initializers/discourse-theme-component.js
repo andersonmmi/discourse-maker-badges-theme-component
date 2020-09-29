@@ -74,8 +74,11 @@ const click = (e) => {
       };
       return config;
     }).then((config)=>{
-    // This method signs the message, returns the signed message to the callback.
-    window.ethereum.sendAsync(config, callback);
+      // User feedback: unlocking badges
+      document.getElementById('badge-status').innerText = "Checking for eligible badges...";
+
+      // This method signs the message, returns the signed message to the callback.
+      window.ethereum.sendAsync(config, callback);
   });
 }
 
