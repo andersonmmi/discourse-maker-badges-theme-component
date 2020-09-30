@@ -11,7 +11,7 @@ const ThemeConfig = {
 };
 
 export default {
-    name: 'maker-badges',
+    name: 'maker-badges-config',
     initialize(){
         globalThis.ThemeConfig = ThemeConfig;
     }
