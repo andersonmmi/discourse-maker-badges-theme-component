@@ -105,7 +105,7 @@ export default {
       api.createWidget(
         'maker-badges-loader-widget',
         {
-          tagName: "button.btn-default",
+          tagName: "button.btn",
           html,
           click,
         },
